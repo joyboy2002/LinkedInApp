@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:converters="clr-namespace:LinkedInApp.Converters" xmlns:viewmodels="clr-namespace:LinkedInApp.ViewModels" x:DataType="viewmodels:JobDetailViewModel"
+             x:Class="LinkedInApp.Views.JobDetailView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Text="Guardar"
+            Command="{Binding SaveCommand}" >
+        </ToolbarItem>
+        <ToolbarItem 
+            Text="Eliminar"
+            Command="{Binding DeleteCommand}" >
+        </ToolbarItem>
+        <ToolbarItem 
+            Text="Ver Mapa"
+            Command="{Binding MapCommand}" >
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        
+        <ScrollView>
+            <StackLayout
+                Margin="30,30,30,0"
+                VerticalOptions="StartAndExpand">
+           
+                <Label Text="Detalle Puesto de trabajo" FontSize="28" FontAttributes="Bold" TextColor="LightBlue"/>
+
+               
+                <Button Text="Eliminar"
+                        BackgroundColor="LightBlue" 
+                        TextColor="White" 
+                        FontAttributes="Bold" 
+                          CornerRadius="10"
+                        Command="{Binding DeleteCommand}"/>
+                <Button Text="Mapa"
+                        BackgroundColor="LightBlue" 
+                        TextColor="White" 
+                        FontAttributes="Bold" 
+                          CornerRadius="10"
+                        Command="{Binding MapCommand}"/>
+    
+
+                <!-- Imagen -->
+             
+                <Grid Margin="0, 0, 20, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button 
+                        BackgroundColor="LightBlue" 
+                        TextColor="White" 
+                        FontAttributes="Bold" 
+                        Text="Tomar fotografía"
+                        Grid.Column="0"
+                        CornerRadius="10"
+                        HeightRequest="55"
+                        Command="{Binding TakePictureCommand}"/>
+
+                    <Button 
+                        BackgroundColor="LightBlue" 
+                        TextColor="White" 
+                        FontAttributes="Bold" 
+                        Text="Seleccionar fotografía"
+                        Grid.Column="1"
+                        CornerRadius="10"
+                        Command="{Binding SelectPictureCommand}"/>
+                </Grid>
+
+                <StackLayout>
+
+                    <Frame 
+                           HeightRequest="350" 
+                           WidthRequest="300"
+                           Padding="0"
+                           HasShadow="True" 
+                           Margin="10,10,10,10"
+                           CornerRadius="15"
+                           HorizontalOptions="End"
+                        >
+                        <Grid>
+                            <StackLayout BackgroundColor="LightBlue">
+
+                                <Image
+                                        Grid.Row="0"
+                                        Source="{Binding JobPicture, Converter={StaticResource ImageConverter}}"  
+                                        HeightRequest="350"
+                                        WidthRequest="400"
+                                        Opacity="0.9"
+                                        Aspect="Fill"/>
+                            </StackLayout>
+                            <StackLayout 
+                                        Margin="0,0,0,0"
+                                        BackgroundColor="Black"
+                                        HorizontalOptions="Fill"
+                                        Opacity="0.3">
+                            </StackLayout>
+                        </Grid>
+
+                    </Frame>
+                </StackLayout>
+                <!-- ID -->
+                <Label 
+                    Text="Ingresa el ID" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobID}"/>
+
+                <!-- Nombre -->
+                <Label 
+                    Text="Ingresa el nombre del puesto de trabajo" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobCargo}"/>
+
+                <!-- Estado -->
+                <Label 
+                    Text="Ingresa la modalidad del trabajo" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobModalidad}"/>
+
+                <!-- Ciudad -->
+                <Label 
+                    Text="Ingresa el nombre de la ciudad" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobCiudad}"/>
+
+                <!-- Empresa -->
+                <Label 
+                    Text="Ingresa el nombre de la empresa" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobEmpresa}"/>
+
+                <!-- Jornada -->
+                <Label 
+                    Text="Ingresa la jornada" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobJornada}"/>
+
+                <!-- Descripción -->
+                <Label 
+                    Text="Ingresa la descripción del puesto" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobDescripcion}"/>
+
+                <!-- Latitud -->
+                <Label 
+                    Text="Latitud" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobLatitude}"/>
+                <!-- Longitud -->
+                <Label 
+                    Text="Longitud" FontSize="16" TextColor="Black"/>
+                <Entry Text="{Binding JobLongitude}"/>
+
+
+
+             
+                <Button 
+                        BackgroundColor="LightBlue" 
+                        TextColor="White" 
+                        FontAttributes="Bold" 
+                        Text="Obtener la Ubicacion"
+                        Grid.Column="1"
+                        CornerRadius="10"
+                        Command="{Binding GetLocationCommand}"
+                        />
+
+                <Button Text="Guardar"
+                        BackgroundColor="LightBlue" 
+                        TextColor="White" 
+                        FontAttributes="Bold" 
+                          CornerRadius="10"
+                        Command="{Binding SaveCommand}"/>
+             
+                <ActivityIndicator
+                    IsRunning="{Binding IsBusy}" />
+
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

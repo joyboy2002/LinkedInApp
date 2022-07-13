@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:converters="clr-namespace:LinkedInApp.Converters" 
+             x:Class="LinkedInApp.Views.JobView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!-- Toolbar -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Nuevo" Command="{Binding NewCommand}" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        
+        <StackLayout>
+            <StackLayout>
+                <Label Text="Puestos de trabajo" FontSize="28" FontAttributes="Bold" TextColor="LightBlue" HorizontalTextAlignment="Center"/>
+            </StackLayout>
+            <!-- Lista -->
+            <RefreshView
+                Command="{Binding RefreshCommand}"
+                IsRefreshing="{Binding IsBusy}">
+
+                <CollectionView
+                    ItemsSource="{Binding Jobs}"
+                    SelectionMode="Single"                
+                    SelectedItem="{Binding JobSelected}"
+                    SelectionChangedCommand="{Binding SelectCommand}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            
+                            <Grid>
+                               
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                    <RowDefinition Height="33" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Frame                         
+                           Padding="0.5"
+                           HasShadow="True"                       
+                           CornerRadius="10"                              
+                           HorizontalOptions="Start"
+                                     Grid.RowSpan="3" 
+                                        Grid.ColumnSpan="1"
+                                    Margin="5,5,5,5"
+                                    BackgroundColor="Gray"
+                        >
+                                    <Image
+                                        Source="{Binding Imagen, Converter={StaticResource ImageConverter}}"  
+                                        HeightRequest="350"
+                                        WidthRequest="400"
+                                        Opacity="0.9"
+                                        Aspect="Fill"/>
+                                </Frame>
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    FontAttributes="Bold"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Cargo}" />
+                                <Label
+                                    Grid.Column="1"
+                                    Grid.Row="2"
+                                    FontAttributes="Bold"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Empresa}" />
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+            <Button
+                Text="Agregar"
+                CornerRadius="20"
+                Margin="10,20,10,30"
+                BackgroundColor="LightBlue"
+                TextColor="White"
+                 Command="{Binding NewCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
